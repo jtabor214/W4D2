@@ -40,6 +40,8 @@ class Manager < Employee
 
 end
 
+#this is a test
+
 p manager2 = Manager.new("Ned", "Founder", 1000000, nil) #employees
 puts "---"
 p manager1 = Manager.new("Darren", "TA Manager", 78000, manager2)
