@@ -23,8 +23,19 @@ class Manager < Employee
 
     def initialize(name, title, salary, boss)
         super(name, title, salary, boss)
-
         @employees = [] #functionally Employee.boss = manager
+    end
+
+    def bonus(multiplier)
+        sum = 0 
+        self.employees.each do |employee|
+            if !employee.is_a?(Manager)
+                sum += employee.salary
+            else 
+                sum += employee.salary + employee.bonus(multiplier)
+            end
+        end
+        sum * multiplier
     end
 
 end
@@ -37,7 +48,7 @@ p employee1 = Employee.new("David", "TA", 10000, manager1)
 puts "---"
 p employee2 = Employee.new("Shawna", "TA", 12000, manager1)
 
-# p manager2.bonus(5) # => 500_000
+ p manager2.bonus(5) # => 500_000
 # p darren.bonus(4) # => 88_000
 # p david.bonus(3) # => 30_000
 
