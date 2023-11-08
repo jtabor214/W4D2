@@ -27,32 +27,37 @@ class Manager < Employee
     end
 
     def bonus(multiplier)
+        total_subsalary * multiplier
+    end
+
+    def total_subsalary
         sum = 0 
         self.employees.each do |employee|
-            if !employee.is_a?(Manager)
-                sum += employee.salary
+            if employee.is_a?(Manager)
+                sum += employee.salary + employee.total_subsalary
             else 
-                sum += employee.salary + employee.bonus(multiplier)
+                sum += employee.salary 
             end
         end
-        sum * multiplier
+        total = sum
+        total
     end
 
 end
 
 #this is a test
 
-p manager2 = Manager.new("Ned", "Founder", 1000000, nil) #employees
-puts "---"
-p manager1 = Manager.new("Darren", "TA Manager", 78000, manager2)
-puts "---"
-p employee1 = Employee.new("David", "TA", 10000, manager1) 
-puts "---"
-p employee2 = Employee.new("Shawna", "TA", 12000, manager1)
+manager2 = Manager.new("Ned", "Founder", 1000000, nil) #employees
+# puts "---"
+manager1 = Manager.new("Darren", "TA Manager", 78000, manager2)
+# puts "---"
+employee1 = Employee.new("David", "TA", 10000, manager1) 
+# puts "---"
+employee2 = Employee.new("Shawna", "TA", 12000, manager1)
 
- p manager2.bonus(5) # => 500_000
-# p darren.bonus(4) # => 88_000
-# p david.bonus(3) # => 30_000
+p manager2.bonus(5) # => 500_000
+p manager1.bonus(4) # => 88_000
+p employee1.bonus(3) # => 30_000
 
 
 # if employee we just want their salary
